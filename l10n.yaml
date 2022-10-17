@@ -1,0 +1,5 @@
+template-arb-file: intl_en.arb
+arb-dir: assets/l10n
+output-localization-file: l10n.dart
+preferred-supported-locales: ["en"]
+output-class: L10n
