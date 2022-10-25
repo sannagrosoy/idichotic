@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dichotic/results.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +14,41 @@ class ListenApp extends StatefulWidget {
   State<ListenApp> createState() => ListenAppState();
 }
 
-
+var pageroute_results = MaterialPageRoute(builder: (context) => const Results());
 class ListenAppState extends State<ListenApp> {
-
+  /*
     final appBar = AppBar(
           title: const Text("Listen", style: TextStyle(color: Colors.black)), 
           centerTitle: true,
           shadowColor: Colors.white,
           backgroundColor: Colors.white
+        actions: [
+          TextButton(
+        onPressed: () {Navigator.push(context, pageroute_results);},
+        child: const Text("Results"))
+      ],
         );
-
+*/
   @override
   Widget build(BuildContext context) {
-
+    final appBar = AppBar();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final appBarHeight = appBar.preferredSize.height;
 
     return Scaffold(
-        appBar: appBar,
+        appBar: AppBar(
+            title: const Text("Listen", style: TextStyle(color: Colors.black)),
+            centerTitle: true,
+            shadowColor: Colors.white,
+            backgroundColor: Colors.white,
+            actions: [
+            TextButton(
+            onPressed: () {Navigator.push(context, pageroute_results);},
+        child: const Text("Results")),
+    ],
+    ),
         body: Center(
         //
         //crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +90,29 @@ class ListenAppState extends State<ListenApp> {
           
         ],)
 
-    )
+    ),
+      /*
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.black,
+        elevation: 0,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.construction),
+              label: 'Main Results'
+
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.access_alarm),
+              label: 'Details'
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.ac_unit_outlined),
+              label: 'Animation'
+          ),
+        ],
+      ),*/
     );
   }
 }
@@ -97,7 +135,7 @@ class CustomContainer extends StatelessWidget {
       OutlinedButton(   
       onPressed: () {print("TA");},
       style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.white, 
+        //backgroundColor: Colors.white,
         elevation: 3, 
         shadowColor: Colors.black, 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))),
