@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TestApp extends StatefulWidget {
-  const TestApp({super.key, required this.title});
+class StartApp extends StatefulWidget {
+  const StartApp({super.key, required this.title});
   final String title;
 
   @override
-  State<TestApp> createState() => TestAppState();
+  State<StartApp> createState() => StartAppState();
 }
 
-class TestAppState extends State<TestApp> {
+class StartAppState extends State<StartApp> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +45,43 @@ class TestAppState extends State<TestApp> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            OutlinedButton(
+              onPressed: () {
+                // Respond to button press
+              },
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 3,
+                  shadowColor: Colors.black,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
+              ),
+              child: Text("Take The Test")
             ),
-            Text(
-              'HI!',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline4,
+            OutlinedButton(
+              onPressed: () {
+                // Respond to button press
+              },
+                style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    elevation: 3,
+                    shadowColor: Colors.black,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
+                ),
+              child: Text("Settings")
             ),
+            OutlinedButton(
+              onPressed: () {
+                // Respond to button press
+
+              },
+                style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    elevation: 3,
+                    shadowColor: Colors.black,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
+                ),
+              child: Text("Learn More")
+            )
           ],
         ),
       ),
