@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dichotic/listen.dart';
+import 'package:dichotic/settings/settings.dart';
 
 class StartApp extends StatefulWidget {
   const StartApp({super.key, required this.title});
@@ -48,6 +50,10 @@ class StartAppState extends State<StartApp> {
             OutlinedButton(
               onPressed: () {
                 // Respond to button press
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TestApp(title: "Test"))
+                );
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -60,6 +66,10 @@ class StartAppState extends State<StartApp> {
             OutlinedButton(
               onPressed: () {
                 // Respond to button press
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SettingsPage())
+                );
               },
                 style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
