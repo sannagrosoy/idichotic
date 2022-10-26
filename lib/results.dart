@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
+/*
 class Results extends StatelessWidget {
   const Results({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,10 +22,10 @@ class Results extends StatelessWidget {
       home: const MyHomePage(title: 'Results'),
     );
   }
-}
+}*/
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class Results extends StatefulWidget {
+  const Results({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -40,10 +39,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Results> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<Results> {
 
 
   static final List<Widget> _pages = <Widget> [
@@ -157,7 +156,9 @@ class _MyHomePageState extends State<MyHomePage> {
         foregroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop(context);
+              },
             icon: const Icon(Icons.arrow_back_ios)
         ),
         centerTitle: true,
