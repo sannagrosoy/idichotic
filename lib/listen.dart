@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dichotic/sounds.dart';
@@ -22,7 +20,7 @@ class TestAppState extends State<TestApp> {
           backgroundColor: Colors.white
         );
 
-  var pageroute_listen = MaterialPageRoute(builder: (context) => const ListenApp(title: "Listen"));
+  var pageroute_listen = () => MaterialPageRoute(builder: (context) => const ListenApp(title: "Listen"));
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +57,7 @@ class CustomButton extends StatelessWidget {
   final Icon icon;
   final double containerHeight;
   final double containerWidth;
-  final PageRoute pageroute;
+  final MaterialPageRoute Function() pageroute;
 
   CustomButton({
     required this.text1, required this.text2, required this.text3, required this.icon, required this.containerHeight, required this.containerWidth, required this.pageroute});
@@ -69,7 +67,7 @@ class CustomButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.0),
       child: OutlinedButton(           
-      onPressed: () {Navigator.push(context, pageroute);},
+      onPressed: () {Navigator.push(context, pageroute.call());},
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.white, 
         elevation: 7, 

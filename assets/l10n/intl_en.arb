@@ -1,4 +1,12 @@
 {
   "settings":  "Settings",
-  "sex": "Sex"
+  "sex": "Sex",
+  "male": "Male",
+  "female": "Female",
+  "otherSex": "Other",
+  "dominantHand": "Dominant hand",
+  "age": "Age",
+  "language": "Language",
+
+  "continueString": "Continue"
 }

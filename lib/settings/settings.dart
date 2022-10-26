@@ -23,12 +23,40 @@ class SettingsState extends State<SettingsPage> {
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List<Widget>.generate(6, (index) =>
-                Dropdown(
-                  icon: Icon(icons[index]),
-                  description: icons[index].toString(),
-                  options: icons.map((e) => e.toString()).toList()))),
+            children: [language(context), sex(context)]
+            //children: List<Widget>.generate(6, (index) =>
+            //    Expanded(child:
+            //    FittedBox(child: Dropdown(
+            //      icon: Icon(icons[index]),
+            //      description: icons[index].toString(),
+            //      options: icons.map((e) => e.toString()).toList())))),
+            //)
+           )
         )
     );
   }
 }
+
+Expanded language(context) =>
+  Expanded(child:
+    FittedBox(child:
+      Dropdown(
+      icon: const Icon(Icons.language),
+      description: L10n.of(context)!.language,
+      options: const ["Norwegian", "English"])
+    )
+  );
+
+Expanded sex(context) =>
+  Expanded(child:
+    FittedBox(child:
+      Dropdown(
+      icon: const Icon(Icons.transgender),
+      description: L10n.of(context)!.sex,
+      options: [
+        L10n.of(context)!.female,
+        L10n.of(context)!.male,
+        L10n.of(context)!.otherSex,
+      ])
+    )
+  );

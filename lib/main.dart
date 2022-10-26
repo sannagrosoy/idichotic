@@ -1,4 +1,3 @@
-import 'package:dichotic/Start_Page.dart';
 import 'package:dichotic/Start_Promt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -53,7 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var pageroute = MaterialPageRoute(builder: (context) => const Start_Promt(title: "Dichotic"));
+  var pageroute = () => MaterialPageRoute(builder: (context) => const Start_Promt(title: "Dichotic"));
 
   @override
   Widget build(BuildContext context) {
@@ -90,15 +89,16 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            const FittedBox(child: Text(
               'You have pushed',
+            ), fit: BoxFit.contain,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, pageroute);
+          Navigator.push(context, pageroute.call());
         },
         tooltip: 'Increment',
         child: const Icon(Icons.next_plan),
