@@ -1,8 +1,4 @@
-import 'dart:ui';
-import 'dart:typed_data';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:dichotic/results.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,21 +10,22 @@ class ListenApp extends StatefulWidget {
   State<ListenApp> createState() => ListenAppState();
 }
 
-var pageroute_results = MaterialPageRoute(builder: (context) => const Results());
+var pageroute_results = () => MaterialPageRoute(builder: (context) => Results(title: "Results"));
 class ListenAppState extends State<ListenApp> {
-  /*
-    final appBar = AppBar(
+
+    Widget appBar(context) {
+      return AppBar(
           title: const Text("Listen", style: TextStyle(color: Colors.black)), 
           centerTitle: true,
           shadowColor: Colors.white,
-          backgroundColor: Colors.white
+          backgroundColor: Colors.white,
         actions: [
           TextButton(
-        onPressed: () {Navigator.push(context, pageroute_results);},
+        onPressed: () {Navigator.push(context, pageroute_results.call());},
         child: const Text("Results"))
-      ],
-        );
-*/
+        ],);
+    }
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar();
@@ -45,7 +42,7 @@ class ListenAppState extends State<ListenApp> {
             backgroundColor: Colors.white,
             actions: [
             TextButton(
-            onPressed: () {Navigator.push(context, pageroute_results);},
+            onPressed: () {Navigator.push(context, pageroute_results.call());},
         child: const Text("Results")),
     ],
     ),
