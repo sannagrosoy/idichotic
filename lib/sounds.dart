@@ -1,4 +1,8 @@
+import 'dart:ui';
+import 'dart:typed_data';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dichotic/results.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +16,12 @@ class ListenApp extends StatefulWidget {
 
 var pageroute_results = () => MaterialPageRoute(builder: (context) => Results(title: "Results"));
 class ListenAppState extends State<ListenApp> {
-
+    List<String> sounds = ["Ba-Ba.wav", "Ba-Da.wav", "Ba-Ga.wav", "Ba-Ka.wav", "Ba-Pa.wav", "Ba-Ta.wav",
+      "Da-Ba.wav", "Da-Da.wav", "Da-Ga.wav", "Da-Ka.wav", "Da-Pa.wav", "Da-Ta.wav",
+      "Ga-Ba.wav", "Ga-Da.wav", "Ga-Ga.wav", "Ga-Ka.wav", "Ga-Pa.wav", "Ga-Ta.wav",
+      "Ka-Ba.wav", "Ka-Da.wav", "Ka-Ga.wav", "Ka-Ka.wav", "Ka-Pa.wav", "Ka-Ta.wav",
+      "Pa-Ba.wav", "Pa-Da.wav", "Pa-Ga.wav", "Pa-Ka.wav", "Pa-Pa.wav", "Pa-Ta.wav",
+      "Ta-Ba.wav", "Ta-Da.wav", "Ta-Ga.wav", "Ta-Ka.wav", "Ta-Pa.wav", "Ta-Ta.wav"];
     Widget appBar(context) {
       return AppBar(
           title: const Text("Listen", style: TextStyle(color: Colors.black)), 
@@ -125,6 +134,7 @@ class CustomContainer extends StatelessWidget {
   final Text text1;
   final double containerHeight;
   final double containerWidth;
+  AudioPlayer player = AudioPlayer();
 
   CustomContainer({
     required this.text1, required this.containerHeight, required this.containerWidth});
@@ -136,8 +146,17 @@ class CustomContainer extends StatelessWidget {
       height: containerHeight,
       width: containerWidth,
       child: 
-      OutlinedButton(   
-      onPressed: () {print("TA");},
+      OutlinedButton(
+       onPressed: () async{
+          //print("TA");
+        ByteData bytes = await rootBundle.load("assets/audio/Ba-Da.wav");
+        Uint8List audiobytes = bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+        int result = await player.playBytes(audiobytes);
+        //int result = await player.play("assets/audio/Ba-Da.wav", isLocal: true);
+        if(result != 1){ //play success
+          print("Error while playing audio.");
+        }
+        },
       style: OutlinedButton.styleFrom(
         //backgroundColor: Colors.white,
         elevation: 3, 
