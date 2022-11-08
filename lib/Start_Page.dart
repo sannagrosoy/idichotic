@@ -11,90 +11,105 @@ class StartApp extends StatefulWidget {
   State<StartApp> createState() => StartAppState();
 }
 
+  final appBar = AppBar(
+          title: const Text("The Tests", style: TextStyle(color: Colors.black)), 
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+        );
+
+var pageroute_settings = () => MaterialPageRoute(builder: (context) => const SettingsPage());
+var pageroute_tests = () => MaterialPageRoute(builder: (context) => const TestApp(title: "Test"));
+var pageroute_learn = () => MaterialPageRoute(builder: (context) => const SettingsPage());
+
 class StartAppState extends State<StartApp> {
+  
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            OutlinedButton(
-              onPressed: () {
-                // Respond to button press
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TestApp(title: "Test"))
-                );
-              },
-              style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
-              ),
-              child: Text("Take The Test")
-            ),
-            OutlinedButton(
-              onPressed: () {
-                // Respond to button press
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SettingsPage())
-                );
-              },
-                style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    elevation: 3,
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
-                ),
-              child: Text("Settings")
-            ),
-            OutlinedButton(
-              onPressed: () {
-                // Respond to button press
 
-              },
-                style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    elevation: 3,
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
-                ),
-              child: Text("Learn More")
-            )
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final appBarHeight = appBar.preferredSize.height;
+
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Text("🧠", style: TextStyle(fontSize: 95))),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight*0.24),
+              child: Text("iDichotic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.01),
+              child:
+            CustomButton(
+              text1: Text("Take the test", style: TextStyle(color: Colors.black, fontSize: 16),), 
+              pageroute: pageroute_tests, 
+              containerHeight: screenHeight*0.07,
+              containerWidth: screenWidth*0.65,)),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.01),
+              child:
+            CustomButton(
+              text1: Text("Settings", style: TextStyle(color: Colors.black, fontSize: 16)), 
+              pageroute: pageroute_settings,
+              containerHeight: screenHeight*0.07,
+              containerWidth: screenWidth*0.65,)),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.13),
+              child: 
+            CustomButton(
+              text1: Text("Learn More", style: TextStyle(color: Colors.black, fontSize: 16)), 
+              pageroute: pageroute_learn,
+              containerHeight: screenHeight*0.07,
+              containerWidth: screenWidth*0.65,))
           ],
         ),
       ),
     );
   }
+}
+
+
+
+class CustomButton extends StatelessWidget {
+  final Text text1;
+  final MaterialPageRoute Function() pageroute;
+  final double containerHeight;
+  final double containerWidth;
+
+  CustomButton({
+    required this.text1, required this.pageroute, required this.containerHeight, required this.containerWidth});
+  
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      padding: EdgeInsets.all(0.0),
+      child: OutlinedButton(           
+      onPressed: () {Navigator.push(context, pageroute.call());},
+      style: OutlinedButton.styleFrom(
+        backgroundColor: Colors.white, 
+        elevation: 7, 
+        shadowColor: Colors.black, 
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))),
+        child: Container(
+          height: containerHeight,
+          width: containerWidth,
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+          text1, 
+          ]
+        ))
+      )
+    );
+  }
+
 }

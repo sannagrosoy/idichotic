@@ -10,6 +10,11 @@ class Start_Promt extends StatefulWidget {
   State<Start_Promt> createState() => Start_Page();
 }
 
+final appBar = AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+    );
+
 class Start_Page extends State<Start_Promt> {
   final _formKey = GlobalKey<FormState>();
   int? age = null;
@@ -62,34 +67,36 @@ class Start_Page extends State<Start_Promt> {
   }
   @override
   Widget build(BuildContext context) {
+
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final appBarHeight = appBar.preferredSize.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter"),
-        elevation: 0,
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Center(
+      //resizeToAvoidBottomInset: false,
+      body: Container(
         child: AlertDialog(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                     content: Stack(
                       children: <Widget>[
-                        Positioned(
-                          right: -40.0,
-                          top: -40.0,
-                          child: InkResponse(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: CircleAvatar(
-                              child: Icon(Icons.close),
-                              backgroundColor: Colors.white,
-                            ),
-                          ),
-                        ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(8, 4, 8, 24),
-                          child: Text("Before you continue.."),
-                        ),
+                          height: screenHeight * 0.5,
+                          child: Column( 
+                            children: <Widget> [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, screenHeight*0.02, 0, 0),
+                                child: Text("🧠", style: TextStyle(fontSize: 85))),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight*0.03),
+                                child: Text("iDichotic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: Text("Before you continue..", style: TextStyle(fontSize: 18))),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, screenHeight*0.02, 0, 0),
+                                child: Text("Please fill out the following information about yourself. This will only be stored locally to give you correct test results until you send it in.", textAlign: TextAlign.center, style: TextStyle(fontSize: 16)))
+                              ])),
                         Container(
                           //padding: EdgeInsets.fromLTRB(8, 4, 8, 24),
                           //child: Text("Please fill out the following information about yourself. This will only be stored locally to give you correct testresults until you send it in."),
@@ -97,10 +104,11 @@ class Start_Page extends State<Start_Promt> {
                         Form(
                           key: _formKey,
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.all(24.0),
+                                padding: EdgeInsets.all(0.0),
                                 child: CupertinoButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () => _showDialog(
@@ -125,18 +133,38 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (age != null) ? Text(
-                                    "Age: " + age.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 22.0,
-                                    ),
-                                  ) : Text(
-                                    "Age: "
+                                  child: (age != null) ? Row(
+                                    //crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Age", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.1), 
+                                      Container(
+                                        width: screenWidth * 0.22,
+                                        child: Text(age.toString(), textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
+                                    //"Age: " + age.toString(),
+                                    //style: const TextStyle(
+                                    //  fontSize: 18.0
+                                    //),
+                                  ) : Row(
+                                      children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Age", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.25), 
+                                      Container(
+                                        width: screenWidth * 0.1,
+                                        child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
+                                      ]
+                                    //children: <Widget> [Text("Age", style: TextStyle(fontSize: 16, color: Colors.black)), Container(width: screenWidth * 0.463), Icon(Icons.arrow_forward_ios, color: Colors.black)]
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.fromLTRB(8, 4, 8, 24),
+                                padding: EdgeInsets.fromLTRB(0,0,0,0),
                                 child: CupertinoButton(
                                   padding: EdgeInsets.zero,
                                   // Display a CupertinoPicker with list of fruits.
@@ -163,18 +191,36 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (gender != 0) ? Text(
-                                    "Gender: " + _genderName[gender],
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                    ),
-                                  ) : Text(
-                                    "Gender: "
+                                  child: (gender != 0) ? Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Gender", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.1), 
+                                      Container(
+                                        width: screenWidth * 0.22,
+                                        child: Text(_genderName[gender], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
+                                    //"Gender: " + _genderName[gender],
+                                    //style: const TextStyle(
+                                      //fontSize: 18.0,
+                                    //),
+                                  ) : Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Gender", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.25), 
+                                      Container(
+                                        width: screenWidth * 0.1,
+                                        child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
+                                      ]
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.fromLTRB(8, 4, 8, 24),
+                                padding: EdgeInsets.fromLTRB(0,0,0,0),
                                 child: CupertinoButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () => _showDialog(
@@ -200,20 +246,38 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (dominanthand != 0) ? Text(
-
-                                    "Dominant Hand: " + _dominantHand[dominanthand],
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                    ),
-                                  ) : Text(
-                                    "Dominant Hand: "
+                                  child: (dominanthand != 0) ? Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Dominant Hand", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.1), 
+                                      Container(
+                                        width: screenWidth * 0.22,
+                                        child: Text(_dominantHand[dominanthand], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
+                                    //"Dominant Hand: " + _dominantHand[dominanthand],
+                                    //style: const TextStyle(
+                                      //fontSize: 18.0,
+                                    //),
+                                  ): Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.3,
+                                        child: Text("Dominant Hand", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.25), 
+                                      Container(
+                                        width: screenWidth * 0.1,
+                                        child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
+                                      ]
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.fromLTRB(8, 4, 8, 24),
+                                padding: EdgeInsets.fromLTRB(0,0,0,0),
                                 child: CupertinoButton(
+                                  
                                   padding: EdgeInsets.zero,
                                   // Display a CupertinoPicker with list of fruits.
                                   onPressed: () => _showDialog(
@@ -239,19 +303,36 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (language != 0) ? Text(
-
-                                    "Native Language: " + _nativeLanguage[language],
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                    ),
-                                  ) : Text(
-                                      "Native Language: "
+                                  child: (language != 0) ? Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.35,
+                                        child: Text("Native Language", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.05), 
+                                      Container(
+                                        width: screenWidth * 0.22,
+                                        child: Text(_nativeLanguage[language], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
+                                    //"Native Language: " + _nativeLanguage[language],
+                                    //style: const TextStyle(
+                                    //  fontSize: 18.0,
+                                    //),
+                                  ) : Row(
+                                    children: <Widget> [
+                                      Container(
+                                        width: screenWidth * 0.35,
+                                        child: Text("Native Language", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                      Container(
+                                        width: screenWidth * 0.20), 
+                                      Container(
+                                        width: screenWidth * 0.1,
+                                        child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
+                                      ]
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(8, 4, 8, 24),
+                              Container(
+                                //height: ,
                                 child: OutlinedButton(
                                   style:OutlinedButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -259,7 +340,7 @@ class Start_Page extends State<Start_Promt> {
                                       shadowColor: Colors.black,
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
                                   ),
-                                  child: Text("Continue>"),
+                                  child: Text("Continue", style: TextStyle(color: Colors.black)),
                                   onPressed: () {
                                     (age != null && gender != 0 && dominanthand != 0 && language != 0) ? Navigator.push(
                                         context,

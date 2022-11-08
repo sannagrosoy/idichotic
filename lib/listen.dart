@@ -16,8 +16,8 @@ class TestAppState extends State<TestApp> {
   final appBar = AppBar(
           title: const Text("The Tests", style: TextStyle(color: Colors.black)), 
           centerTitle: true,
-          shadowColor: Colors.white,
-          backgroundColor: Colors.white
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
         );
 
   var pageroute_listen = () => MaterialPageRoute(builder: (context) => const ListenApp(title: "Listen"));
