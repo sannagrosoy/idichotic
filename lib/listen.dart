@@ -38,7 +38,7 @@ class TestAppState extends State<TestApp> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget> [
                 Container(
-                  height: screenHeight * 0.05,
+                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.05,
                 ),
 
                 CustomButton(
@@ -51,7 +51,7 @@ class TestAppState extends State<TestApp> {
                   pageroute: pageroute_listen),
 
                 Container(
-                  height: screenHeight * 0.08
+                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.08
                 ),
 
                 CustomButton(
@@ -115,5 +115,4 @@ class CustomButton extends StatelessWidget {
       )
     );
   }
-
 }

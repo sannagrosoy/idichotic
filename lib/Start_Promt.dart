@@ -133,34 +133,38 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (age != null) ? Row(
+                                  child: (age != null) ? 
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
+                                        width: screenWidth * 0.4,
                                         child: Text("Age", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.1), 
-                                      Container(
-                                        width: screenWidth * 0.22,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Text(age.toString(), textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
                                     //"Age: " + age.toString(),
                                     //style: const TextStyle(
                                     //  fontSize: 18.0
                                     //),
-                                  ) : Row(
+                                  )) :
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                       children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
-                                        child: Text("Age", style: TextStyle(fontSize: 16, color: Colors.black))), 
+                                        width: screenWidth * 0.4,
+                                        child: Text("Age", style: TextStyle(fontSize: 16, color: Colors.black))),  
                                       Container(
-                                        width: screenWidth * 0.25), 
-                                      Container(
-                                        width: screenWidth * 0.1,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
                                       ]
                                     //children: <Widget> [Text("Age", style: TextStyle(fontSize: 16, color: Colors.black)), Container(width: screenWidth * 0.463), Icon(Icons.arrow_forward_ios, color: Colors.black)]
-                                  ),
+                                  )),
                                 ),
                               ),
                               Padding(
@@ -191,32 +195,36 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (gender != 0) ? Row(
+                                  child: (gender != 0) ? 
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
+                                        width: screenWidth * 0.4,
                                         child: Text("Gender", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.1), 
-                                      Container(
-                                        width: screenWidth * 0.22,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Text(_genderName[gender], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
                                     //"Gender: " + _genderName[gender],
                                     //style: const TextStyle(
                                       //fontSize: 18.0,
                                     //),
-                                  ) : Row(
+                                  )) : 
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
+                                        width: screenWidth * 0.4,
                                         child: Text("Gender", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.25), 
-                                      Container(
-                                        width: screenWidth * 0.1,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
                                       ]
-                                  ),
+                                  )),
                                 ),
                               ),
                               Padding(
@@ -246,32 +254,35 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (dominanthand != 0) ? Row(
+                                  child: (dominanthand != 0) ?                                   
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
+                                        width: screenWidth * 0.4,
                                         child: Text("Dominant Hand", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.1), 
-                                      Container(
-                                        width: screenWidth * 0.22,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Text(_dominantHand[dominanthand], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
                                     //"Dominant Hand: " + _dominantHand[dominanthand],
                                     //style: const TextStyle(
                                       //fontSize: 18.0,
                                     //),
-                                  ): Row(
+                                  )):Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.3,
+                                        width: screenWidth * 0.4,
                                         child: Text("Dominant Hand", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.25), 
-                                      Container(
-                                        width: screenWidth * 0.1,
+                                        alignment: Alignment.bottomRight,
+                                        width: screenWidth * 0.25,
                                         child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
                                       ]
-                                  ),
+                                  )),
                                 ),
                               ),
                               Padding(
@@ -303,31 +314,37 @@ class Start_Page extends State<Start_Promt> {
                                     ),
                                   ),
                                   // This displays the selected fruit name.
-                                  child: (language != 0) ? Row(
+                                  child: (language != 0) ? 
+                                  Container(
+                                  width: screenWidth*0.65,
+                                  child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.35,
+                                        width: screenWidth*0.4,
+                                        alignment: Alignment.bottomLeft,
                                         child: Text("Native Language", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.05), 
-                                      Container(
-                                        width: screenWidth * 0.22,
+                                        width: screenWidth*0.25,
+                                        alignment: Alignment.bottomRight,
                                         child: Text(_nativeLanguage[language], textAlign:TextAlign.right, style: TextStyle(fontSize: 16, color: Colors.black)))]
                                     //"Native Language: " + _nativeLanguage[language],
                                     //style: const TextStyle(
                                     //  fontSize: 18.0,
                                     //),
-                                  ) : Row(
+                                  )) : Container(
+                                    width: screenWidth*0.65,
+                                    child: Row(
                                     children: <Widget> [
                                       Container(
-                                        width: screenWidth * 0.35,
+                                        width: screenWidth*0.4,
+                                        alignment: Alignment.bottomLeft,
                                         child: Text("Native Language", style: TextStyle(fontSize: 16, color: Colors.black))), 
                                       Container(
-                                        width: screenWidth * 0.20), 
-                                      Container(
-                                        width: screenWidth * 0.1,
+                                        width: screenWidth*0.25,
+                                        alignment: Alignment.bottomRight,
                                         child: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16))
                                       ]
+                                    )
                                   ),
                                 ),
                               ),

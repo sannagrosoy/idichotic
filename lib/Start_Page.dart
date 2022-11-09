@@ -41,31 +41,31 @@ class StartAppState extends State<StartApp> {
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Text("🧠", style: TextStyle(fontSize: 95))),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight*0.24),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, (screenHeight-appBarHeight-statusBarHeight)*0.24),
               child: Text("iDichotic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.01),
+              padding: EdgeInsets.fromLTRB(0, (screenHeight-appBarHeight-statusBarHeight)*0.01, 0, (screenHeight-appBarHeight-statusBarHeight)*0.01),
               child:
             CustomButton(
               text1: Text("Take the test", style: TextStyle(color: Colors.black, fontSize: 16),), 
               pageroute: pageroute_tests, 
-              containerHeight: screenHeight*0.07,
+              containerHeight: (screenHeight-appBarHeight-statusBarHeight)*0.07,
               containerWidth: screenWidth*0.65,)),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.01),
+              padding: EdgeInsets.fromLTRB(0, (screenHeight-appBarHeight-statusBarHeight)*0.01, 0, (screenHeight-appBarHeight-statusBarHeight)*0.01),
               child:
             CustomButton(
               text1: Text("Settings", style: TextStyle(color: Colors.black, fontSize: 16)), 
               pageroute: pageroute_settings,
-              containerHeight: screenHeight*0.07,
+              containerHeight: (screenHeight-appBarHeight-statusBarHeight)*0.07,
               containerWidth: screenWidth*0.65,)),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, screenHeight*0.01, 0, screenHeight*0.13),
+              padding: EdgeInsets.fromLTRB(0, (screenHeight-appBarHeight-statusBarHeight)*0.01, 0, (screenHeight-appBarHeight-statusBarHeight)*0.13),
               child: 
             CustomButton(
               text1: Text("Learn More", style: TextStyle(color: Colors.black, fontSize: 16)), 
               pageroute: pageroute_learn,
-              containerHeight: screenHeight*0.07,
+              containerHeight: (screenHeight-appBarHeight-statusBarHeight)*0.07,
               containerWidth: screenWidth*0.65,))
           ],
         ),
