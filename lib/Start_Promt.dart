@@ -13,6 +13,8 @@ class Start_Promt extends StatefulWidget {
 final appBar = AppBar(
       centerTitle: true,
       backgroundColor: Colors.transparent,
+      foregroundColor: Colors.black,
+
     );
 
 class Start_Page extends State<Start_Promt> {

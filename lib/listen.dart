@@ -18,6 +18,7 @@ class TestAppState extends State<TestApp> {
           centerTitle: true,
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
+          foregroundColor: Colors.black,
         );
 
   var pageroute_listen = () => MaterialPageRoute(builder: (context) => const ListenApp(title: "Listen"));

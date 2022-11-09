@@ -38,8 +38,9 @@ class ListenAppState extends State<ListenApp> {
         appBar: AppBar(
             title: const Text("Listen", style: TextStyle(color: Colors.black)),
             centerTitle: true,
-            shadowColor: Colors.white,
-            backgroundColor: Colors.white,
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black,
             actions: [
             TextButton(
             onPressed: () {Navigator.push(context, pageroute_results.call());},
@@ -49,7 +50,7 @@ class ListenAppState extends State<ListenApp> {
         body: Center(
         //
         //crossAxisAlignment: CrossAxisAlignment.center,
-        child:
+        child: 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
         //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,36 +58,33 @@ class ListenAppState extends State<ListenApp> {
           Column(
           children: <Widget> [
           CustomContainer(
-            text1: Text("DA"),
+            text1: Text("TA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
-            text1: Text("TA"),
+            text1: Text("GA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
-            text1: Text("BA"),
+            text1: Text("KA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4)]),
 
           Column(
           children: <Widget> [
           CustomContainer(
-            text1: Text("DA"),
+            text1: Text("BA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
-            text1: Text("TA"),
+            text1: Text("DA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
-            text1: Text("BA"),
+            text1: Text("PA", style: TextStyle(color: Colors.black, fontSize: 24)),
             containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
             containerWidth: screenWidth * 0.4)])
-
-          
-        ],)
-
+          ]),
     ),
       /*
       bottomNavigationBar: BottomNavigationBar(
@@ -134,6 +132,7 @@ class CustomContainer extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         //backgroundColor: Colors.white,
         elevation: 3, 
+        backgroundColor: Colors.white,
         shadowColor: Colors.black, 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))),
         child: Container(child: text1))
