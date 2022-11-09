@@ -1,5 +1,6 @@
 enum Sex {
-  male,
+  unspecified,
   female,
+  male,
   other,
 }

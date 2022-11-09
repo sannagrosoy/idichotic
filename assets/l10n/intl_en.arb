@@ -6,7 +6,26 @@
   "otherSex": "Other",
   "dominantHand": "Dominant hand",
   "age": "Age",
-  "language": "Language",
+  "nativeLanguage": "Native Language",
+  "soundLanguage": "Sound Language",
+  "unspecified": "Not Answered",
+
+  "handedness": "Dominant Hand",
+  "@handedness": {
+    "description": "An option for the dominant hand of the user"
+  },
+
+  "right": "Right",
+  "@right": {
+    "description": "The ordinal right direction"
+  },
+
+  "left": "Left",
+  "@left": {
+    "description": "The ordinal left direction"
+  },
+
+  "both": "Both",
 
   "continueString": "Continue"
 }

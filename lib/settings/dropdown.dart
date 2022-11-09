@@ -1,14 +1,21 @@
+import 'dart:developer';
+
 import 'package:dichotic/scroll.dart';
+import 'package:dichotic/settings/languages.dart';
+import 'package:dichotic/settings/settings.dart';
+import 'package:dichotic/settings/types/handedness.dart';
 import 'package:dichotic/settings/types/sex.dart';
+import 'package:drift/drift.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:isar/isar.dart';
 
-import 'options.dart';
+import '../db/database.dart';
+import '../db/shared.dart';
+import 'preferences.dart';
 
-class Dropdown extends StatefulWidget {
+class Dropdown<T> extends StatefulWidget {
   Dropdown({super.key,
     required this.icon,
     required this.description,
@@ -16,11 +23,12 @@ class Dropdown extends StatefulWidget {
   });
 
 
-  static final isar = Isar.openSync([OptionsSchema]);
+  static final database = constructDb();
 
   final Icon icon;
   final String description;
-  final List<String> options;
+ // final List<String> options;
+  final Map<String, dynamic> options;
 
   void updateOption() {}
 
@@ -33,7 +41,7 @@ class Dropdown extends StatefulWidget {
         choices: options);
   }
 }
-final Options options = Options();
+final Preferences options = Preferences();
 
 
 class DropdownState extends State<Dropdown> {
@@ -46,47 +54,70 @@ class DropdownState extends State<Dropdown> {
   Icon icon;
   String description;
   ValueNotifier<int> selection = ValueNotifier(0);
-  List<String> choices;
+  Map<String, dynamic> choices;
 
-  void updateSex(String selection) {
-    if (selection == L10n.of(context)!.male) {
-      options.sex = Sex.male;
+  T? update<T extends Enum>(String selection, T fallback, Map<String, dynamic> map) {
+    T? option = fallback;
+    if (map.keys.contains(selection)) {
+      option = map[selection];
     }
-    if (selection == L10n.of(context)!.female) {
-      options.sex = Sex.female;
+    return option;
+  }
+  PreferencesCompanion updateSex(String selection) {
+    Sex? sex = update(selection, Sex.unspecified, choices);
+    return PreferencesCompanion(id: const Value(0), sex: Value(sex));
+  }
+
+  PreferencesCompanion updateHand(String selection) {
+    Handedness? handedness = update(selection, Handedness.unspecified, choices);
+    return PreferencesCompanion(id: const Value(0), handedness: Value(handedness));
+  }
+
+  Future<PreferencesCompanion> updateSoundLanguage(String selection) async {
+    var result = await Languages.get(context);
+    if (!soundLanguages.contains(result[selection]!.iso_639_2)) {
+      log("Somehow received an undefined sound language as input");
+      return const PreferencesCompanion(id: Value(0));
     }
-    if (selection == L10n.of(context)!.otherSex) {
-      options.sex = Sex.other;
-    }
+    return PreferencesCompanion(id: const Value(0), soundLanguage: Value(result[selection]));
   }
 
-  void updateHand(String selection) {
-
+  Future<PreferencesCompanion> updateNativeLanguage(String selection) async {
+    var result = await Languages.get(context);
+    return PreferencesCompanion(id: const Value(0), nativeLanguage: Value(result[selection]));
   }
 
-  void updateLanguage(String selection) {
-
+  PreferencesCompanion updateAge(String selection) {
+    var result = int.tryParse(selection);
+    return PreferencesCompanion(id: const Value(0), age: Value(result));
   }
 
-  void updateAge(String selection) {
-
-  }
 
   void updateFields(String option, String selection) async {
     Map values = {
       L10n.of(context)!.sex: updateSex,
-      L10n.of(context)!.dominantHand: updateHand,
-      L10n.of(context)!.language: updateLanguage,
+      L10n.of(context)!.handedness: updateHand,
+      L10n.of(context)!.nativeLanguage: updateNativeLanguage,
+      L10n.of(context)!.soundLanguage: updateSoundLanguage,
       L10n.of(context)!.age: updateAge
     };
     if (values.containsKey(option)) {
       // Call the method matching option that was changed
-      values[option].call(selection);
-      await Dropdown.isar.writeTxn(() => Dropdown.isar.options.put(options));
+      updateWithCompanion(await values[option].call(selection));
+    }
+    else {
+      log("Attempted to update unrecognized field");
     }
   }
 
-  Widget picker(List<String> items, String option){
+  void updateWithCompanion(PreferencesCompanion companion) async {
+    await Dropdown.database
+      .into(Dropdown.database.preferences)
+      .insertOnConflictUpdate(companion);
+  }
+
+
+  Widget picker(String option){
     return CupertinoPageScaffold(
       child: ScrollConfiguration(
         behavior: CrossPlatformScrollBehaviour(),
@@ -96,13 +127,13 @@ class DropdownState extends State<Dropdown> {
             onSelectedItemChanged: (int selection) {
               setState(() {
                 this.selection.value = selection;
-                updateFields(option, choices[selection]);
+                updateFields(option, choices.keys.toList()[selection]);
               });
             },
             scrollController: FixedExtentScrollController(),
             //children: [sex(context), language(context)],
             children: List<Widget>.generate(choices.length, (index) {
-              return Center(child: Text(choices[index]));
+              return Center(child: Text(choices.keys.toList()[index]));
             })
           )
       )
@@ -121,27 +152,26 @@ class DropdownState extends State<Dropdown> {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-        padding: EdgeInsets.all(16),
-        alignment: Alignment.bottomCenter,
-        child: FittedBox(
-          child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            icon,
-            Text(description),
-            //Spacer(flex: 1),
-            ValueListenableBuilder<int>(
-              builder: (BuildContext context, int value, Widget? child) {
-                return CupertinoButton(
-                    child: Text(choices[value]),
-                    onPressed: () => showPicker(picker(choices, description)));
-              },
-              valueListenable: selection,
-            )
-          ],
-        ),
-        )
-      );
+    return Container(
+      padding: EdgeInsets.all(16),
+      alignment: Alignment.bottomCenter,
+      child: FittedBox(
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          icon,
+          Text(description),
+          ValueListenableBuilder<int>(
+            builder: (BuildContext context, int value, Widget? child) {
+              return CupertinoButton(
+                  child: Text(choices.keys.toList()[value]),
+                  onPressed: () => showPicker(picker(description)));
+            },
+            valueListenable: selection,
+          )
+        ],
+      ),
+      )
+    );
   }
 }
