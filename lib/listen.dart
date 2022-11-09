@@ -14,7 +14,7 @@ class TestApp extends StatefulWidget {
 class TestAppState extends State<TestApp> {  
   
   final appBar = AppBar(
-          title: const Text("The Tests", style: TextStyle(color: Colors.black)), 
+          title: const Text(" ", style: TextStyle(color: Colors.black)), 
           centerTitle: true,
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -33,17 +33,35 @@ class TestAppState extends State<TestApp> {
     return Scaffold(
         appBar: appBar,
         body: Padding(
-            padding: const EdgeInsets.all(70),
+            padding: const EdgeInsets.all(0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget> [
+                Container(
+                  height: screenHeight * 0.05,
+                ),
+
                 CustomButton(
-                  text1: const Text("Listen"),
-                  text2: const Text("Duration: 3 minutes"), 
-                  text3: const Text("In this test you choose the sound you hear the best"), 
-                  icon: const Icon(Icons.arrow_right_outlined), 
-                  containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.40, 
-                  containerWidth: screenWidth * 0.4, 
-                  pageroute: pageroute_listen)
+                  text1: const Text("Listen", style: TextStyle(fontSize: 20, color: Colors.black)),
+                  text2: const Text("Duration: 3 minutes", style: TextStyle(fontSize: 12, color: Colors.black)), 
+                  text3: const Text("In this test you get presented mutliple sound and you have three seconds to press the button with the sound you hear the best.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
+                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
+                  containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.34, 
+                  containerWidth: screenWidth * 0.57, 
+                  pageroute: pageroute_listen),
+
+                Container(
+                  height: screenHeight * 0.08
+                ),
+
+                CustomButton(
+                  text1: const Text("Concentrate", style: TextStyle(fontSize: 20, color: Colors.black)),
+                  text2: const Text("Duration: 5 minutes", style: TextStyle(fontSize: 12, color: Colors.black)), 
+                  text3: const Text("In this test you get presented multiple sounds and you have three seconds to press the button with the sound you hear the best.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
+                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
+                  containerHeight:(screenHeight-appBarHeight-statusBarHeight) * 0.34, 
+                  containerWidth: screenWidth * 0.57, 
+                  pageroute: pageroute_listen),
             ],)
         )
     );
@@ -65,7 +83,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20.0),
       child: OutlinedButton(           
       onPressed: () {Navigator.push(context, pageroute.call());},
       style: OutlinedButton.styleFrom(
@@ -77,10 +94,22 @@ class CustomButton extends StatelessWidget {
           height: containerHeight,
           width: containerWidth,
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-          text1, text2, text3, icon
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.1, 0, 0),
+              child:text1),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.015, 0, 0),
+              child:text2),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.03, 0, 0),
+              child:text3),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.07, 0, containerHeight*0.04,),
+              child:icon)
+          
           ]
         ))
       )
