@@ -1,4 +1,7 @@
+import 'package:dichotic/exampledata.dart';
+import 'package:dichotic/resultschart.dart';
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 /*
 class Results extends StatelessWidget {
   const Results({super.key});
@@ -25,16 +28,28 @@ class Results extends StatelessWidget {
 }*/
 
 class Results extends StatefulWidget {
-  const Results({super.key, required this.title});
+  Results({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  final List<ExampleData> data = [
+    ExampleData(
+        amount: 10,
+        n: 1,
+        id: "Right",
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+    ),
+    ExampleData(
+        amount: 10,
+        n: 2,
+        id: "Left",
+        barColor: charts.ColorUtil.fromDartColor(Colors.green),
+    ),
+    ExampleData(
+        amount: 10,
+        n:3,
+        id: "Error",
+        barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    )
+  ];
 
   final String title;
 
@@ -44,11 +59,31 @@ class Results extends StatefulWidget {
 
 class _MyHomePageState extends State<Results> {
 
+  static final List<ExampleData> data = [
+    ExampleData(
+      amount: 23,
+      n: 1,
+      id: "Right",
+      barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+    ),
+    ExampleData(
+      amount: 4,
+      n: 2,
+      id: "Left",
+      barColor: charts.ColorUtil.fromDartColor(Colors.green),
+    ),
+    ExampleData(
+      amount: 3,
+      n:3,
+      id: "Error",
+      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+    )
+  ];
 
   static final List<Widget> _pages = <Widget> [
     Center(
         child: Column(
-          children: const [
+          children: [
             Icon(
               Icons.construction,
               size: 150,
@@ -56,15 +91,7 @@ class _MyHomePageState extends State<Results> {
             Text(
                 "Well done!\nSomething something your brain left right"
             ),
-            /*PieChart(
-              //har vist nok en license, bare brukt som eksempel
-                dataMap:
-                {
-                  "LEFT": 50,
-                  "RIGHT": 30,
-                  "UNSPECIFIED": 20,
-                }
-            ),*/
+            ResultsChart(data)
           ],
         )
     ),
@@ -77,7 +104,7 @@ class _MyHomePageState extends State<Results> {
               size: 150,
             ),
             Text(
-                "Why do we know this?????????????????????????????????"
+                "Why do we know this? Your brain something something, signal travels across brain"
             ),
           ],
         )
@@ -170,7 +197,7 @@ class _MyHomePageState extends State<Results> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text("Submit Results"),
-                    content: Text("Something Something Something Something Something Something Something Something TOS Data"),
+                    content: Text("Something Something privacy Something Something lawsuit Something Something Something Something TOS Data"),
                     actions: [
                       TextButton(
                         onPressed: (){},
@@ -196,6 +223,8 @@ class _MyHomePageState extends State<Results> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
         items: const <BottomNavigationBarItem>[
@@ -215,6 +244,7 @@ class _MyHomePageState extends State<Results> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
+
 
     ); // This trailing comma makes auto-formatting nicer for build methods.
   }
