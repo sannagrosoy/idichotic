@@ -1,6 +1,7 @@
 import 'package:dichotic/exampledata.dart';
 import 'package:dichotic/resultschart.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 /*
 class Results extends StatelessWidget {
@@ -55,6 +56,46 @@ class Results extends StatefulWidget {
 
   @override
   State<Results> createState() => _MyHomePageState();
+}
+
+class VideoPlayerExample extends StatefulWidget{
+  const VideoPlayerExample({super.key});
+  @override
+  State<StatefulWidget> createState() => _VideoPlayerScreenState();
+
+}
+class _VideoPlayerScreenState extends State{
+  late VideoPlayerController _videoPlayerController;
+  //late Future<void> _initVideoPlayerFuture;
+
+  void initState(){
+    super.initState();
+    _videoPlayerController = VideoPlayerController.asset("assets/video/NL.mp4");
+    //_initVideoPlayerFuture = _videoPlayerController.initialize();
+    _videoPlayerController.initialize().then((_) {setState(() {
+      _videoPlayerController.play();
+      _videoPlayerController.setLooping(true);
+    });
+  });
+
+  }
+
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: _videoPlayerController.value.isInitialized ? AspectRatio(aspectRatio:
+      _videoPlayerController.value.aspectRatio,
+          child: VideoPlayer(_videoPlayerController)
+      ): Container()
+    );
+  }
+
 }
 
 class _MyHomePageState extends State<Results> {
@@ -114,48 +155,7 @@ class _MyHomePageState extends State<Results> {
 
 
     Center(
-
-        child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                //flex: 2,
-                child:Column(
-                  children: [
-                    Expanded(
-                        child: Icon(
-                          Icons.construction,
-                        )),Expanded(
-                      child: Icon(
-                        Icons.construction,
-                      ),),Expanded(
-                      child: Icon(
-                        Icons.construction,
-                      ),),
-                  ],
-                ),),
-              Expanded(
-                //flex: 2,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Icon(
-                          Icons.construction,
-                        ),),
-                      Expanded(
-                        child: Icon(
-                          Icons.construction,
-                        ),),
-                      Expanded(
-                        child: Icon(
-                          Icons.construction,
-                        ),),
-
-                    ],
-                  ))
-            ]
-        )
+        child: VideoPlayerExample(),
     )];
 
   int _selectedIndex = 0;
