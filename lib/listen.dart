@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dichotic/sounds.dart';
+import 'package:dichotic/loading.dart';
 
 class TestApp extends StatefulWidget {
   const TestApp({super.key, required this.title});
@@ -23,7 +24,7 @@ class TestAppState extends State<TestApp> {
           foregroundColor: Colors.black,
         );
 
-  var pageroute_listen = () => MaterialPageRoute(builder: (context) => const ListenApp(title: "Listen"));
+  var pageroute_listen = () => MaterialPageRoute(builder: (context) => const LoadingApp(title: "Loading"));
 
   @override
   Widget build(BuildContext context) {

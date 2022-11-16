@@ -50,7 +50,7 @@ class ListenAppState extends State<ListenApp> {
         body: Center(
         //
         //crossAxisAlignment: CrossAxisAlignment.center,
-        child: 
+       child: Column( children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
         //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,32 +59,41 @@ class ListenAppState extends State<ListenApp> {
           children: <Widget> [
           CustomContainer(
             text1: Text("TA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
             text1: Text("GA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
             text1: Text("KA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
             containerWidth: screenWidth * 0.4)]),
 
           Column(
           children: <Widget> [
           CustomContainer(
             text1: Text("BA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
             text1: Text("DA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
             containerWidth: screenWidth * 0.4),
           CustomContainer(
             text1: Text("PA", style: TextStyle(color: Colors.black, fontSize: 24)),
-            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.30,
-            containerWidth: screenWidth * 0.4)])
-          ]),
+            containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.28,
+            containerWidth: screenWidth * 0.4),
+          ])
+          ]
+          ),
+
+          Padding(
+            padding: EdgeInsets.fromLTRB(screenWidth*0.13, screenHeight*0.05, screenWidth*0.13,0),
+            
+            child: TimelineWidget())
+            
+      ],)
     ),
       /*
       bottomNavigationBar: BottomNavigationBar(
@@ -139,4 +148,55 @@ class CustomContainer extends StatelessWidget {
     );
   }
 
+}
+
+
+class TimelineWidget extends StatefulWidget {
+  const TimelineWidget({super.key});
+
+
+  @override
+  State<TimelineWidget> createState() => _TimelineWidgetState();
+}
+
+/// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
+class _TimelineWidgetState extends State<TimelineWidget>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.repeat(reverse: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            LinearProgressIndicator(
+              value: controller.value,
+              minHeight: 14,
+              semanticsLabel: 'Linear progress indicator',
+            ),
+          ],
+        ),
+      );
+  }
 }
