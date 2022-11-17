@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dichotic/exampledata.dart';
 import 'package:dichotic/results.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class ListenApp extends StatefulWidget {
   State<ListenApp> createState() => ListenAppState();
 }
 
-var pageroute_results = () => MaterialPageRoute(builder: (context) => Results(title: "Results"));
+var pageroute_results = (List<ExampleData> data) => MaterialPageRoute(builder: (context) => Results(title: "Results", data: data));
 class ListenAppState extends State<ListenApp> {
   AudioPlayer player = AudioPlayer();
   List<String> sounds = ["audio/Ba-Ba.wav", "audio/Ba-Da.wav",
@@ -41,7 +42,15 @@ class ListenAppState extends State<ListenApp> {
           backgroundColor: Colors.white,
         actions: [
           TextButton(
-        onPressed: () {Navigator.push(context, pageroute_results.call());},
+        onPressed: () {
+          List<ExampleData> data = [
+            ExampleData(amount: Right_correct, id: "Right correct"),
+            ExampleData(amount: Left_correct, id: "Left correct"),
+            ExampleData(amount: Same_sound_correct, id: "Homogen correct"),
+            ExampleData(amount: Same_sound_incorrect, id: "Homogen incorrect"),
+            ExampleData(amount: wrong, id: "Inorrect"),
+          ];
+          Navigator.push(context, pageroute_results.call(data));},
         child: const Text("Results"))
         ],);
     }
@@ -54,7 +63,6 @@ class ListenAppState extends State<ListenApp> {
   }
 
   void play(String filepath, AudioPlayer player) async{
-    String filepath = sounds[sound_index];
     await player.play(AssetSource(filepath));
     //}
   }
@@ -75,7 +83,15 @@ class ListenAppState extends State<ListenApp> {
             foregroundColor: Colors.black,
             actions: [
             TextButton(
-            onPressed: () {Navigator.push(context, pageroute_results.call());},
+            onPressed: () {
+              List<ExampleData> data = [
+                ExampleData(amount: Right_correct, id: "Right correct"),
+                ExampleData(amount: Left_correct, id: "Left correct"),
+                ExampleData(amount: Same_sound_correct, id: "Homogen correct"),
+                ExampleData(amount: Same_sound_incorrect, id: "Homogen incorrect"),
+                ExampleData(amount: wrong, id: "Inorrect"),
+              ];
+              Navigator.push(context, pageroute_results.call(data));},
         child: const Text("Results")),
     ],
     ),
@@ -190,16 +206,17 @@ class CustomContainer extends StatelessWidget {
                 scoreLogic();
                 app.sound_index++;
               }
-              if (app.sound_index < app.sounds.length - 1) {
-                app.sound_index++;
+              if (app.sound_index < app.sounds.length) {
                 String filepath = app.sounds[app.sound_index];
                 app.play(filepath, app.player);
               } else {
-                print(app.Right_correct);
-                print(app.Left_correct);
-                print(app.Same_sound_correct);
-                print(app.Same_sound_incorrect);
-                print(app.wrong);
+                List<ExampleData> data = [
+                  ExampleData(amount: app.Right_correct, id: "Right correct"),
+                  ExampleData(amount: app.Left_correct, id: "Left correct"),
+                  ExampleData(amount: app.Same_sound_correct, id: "Homogen correct"),
+                  ExampleData(amount: app.Same_sound_incorrect, id: "Homogen incorrect"),
+                  ExampleData(amount: app.wrong, id: "Inorrect"),
+                ];
               }
             },
             style: OutlinedButton.styleFrom(

@@ -14,7 +14,7 @@ class ResultsChart extends StatelessWidget{
           data: data,
           domainFn: (ExampleData result, _) => result.id,
           measureFn: (ExampleData result, _) => result.amount,
-          colorFn: (ExampleData result, _) => result.barColor
+          //colorFn: (ExampleData result, _) => result.barColor
       )
     ];
     //return charts.BarChart(result,animate: false,);

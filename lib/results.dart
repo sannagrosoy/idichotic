@@ -29,28 +29,28 @@ class Results extends StatelessWidget {
 }*/
 
 class Results extends StatefulWidget {
-  Results({super.key, required this.title});
+  Results({super.key, required this.title, required this.data});
 
-  final List<ExampleData> data = [
+  final List<ExampleData> data; /*= [
     ExampleData(
         amount: 10,
-        n: 1,
+        //n: 1,
         id: "Right",
-        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+        //barColor: charts.ColorUtil.fromDartColor(Colors.blue),
     ),
     ExampleData(
         amount: 10,
-        n: 2,
+        //n: 2,
         id: "Left",
-        barColor: charts.ColorUtil.fromDartColor(Colors.green),
+        //barColor: charts.ColorUtil.fromDartColor(Colors.green),
     ),
     ExampleData(
         amount: 10,
-        n:3,
+        //n:3,
         id: "Error",
-        barColor: charts.ColorUtil.fromDartColor(Colors.red),
+        //barColor: charts.ColorUtil.fromDartColor(Colors.red),
     )
-  ];
+  ];*/
 
   final String title;
 
@@ -103,21 +103,21 @@ class _MyHomePageState extends State<Results> {
   static final List<ExampleData> data = [
     ExampleData(
       amount: 23,
-      n: 1,
+      //n: 1,
       id: "Right",
-      barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      //barColor: charts.ColorUtil.fromDartColor(Colors.blue),
     ),
     ExampleData(
       amount: 4,
-      n: 2,
+      //n: 2,
       id: "Left",
-      barColor: charts.ColorUtil.fromDartColor(Colors.green),
+      //barColor: charts.ColorUtil.fromDartColor(Colors.green),
     ),
     ExampleData(
       amount: 3,
-      n:3,
+      //n:3,
       id: "Error",
-      barColor: charts.ColorUtil.fromDartColor(Colors.red),
+      //barColor: charts.ColorUtil.fromDartColor(Colors.red),
     )
   ];
 

@@ -3,16 +3,16 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class ExampleData {
   final int amount;
-  final int n;
+  //final int n;
   final String id;
-  final charts.Color barColor;
+  //final charts.Color barColor;
 
   ExampleData(
       {
         required this.amount,
-        required this.n,
+        //required this.n,
         required this.id,
-        required this.barColor,
+        //required this.barColor,
       }
       );
 }
