@@ -1,6 +1,7 @@
 import 'package:dichotic/settings/dropdown.dart';
 import 'package:dichotic/settings/languages.dart';
 import 'package:dichotic/settings/types/handedness.dart';
+import 'package:dichotic/settings/types/language.dart';
 import 'package:dichotic/settings/types/sex.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,11 @@ class SettingsState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    initItems();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        initItems();
+      });
+    });
   }
 
   void initItems() async {
@@ -45,17 +50,14 @@ class SettingsState extends State<SettingsPage> {
         body: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: items
-            //children: List<Widget>.generate(6, (index) =>
-            //    Expanded(child:
-            //    FittedBox(child: Dropdown(
-            //      icon: Icon(icons[index]),
-            //      description: icons[index].toString(),
-            //      options: icons.map((e) => e.toString()).toList())))),
-            //)
-           )
+          child: Form(
+            key: GlobalKey<FormState>(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: items
+            )
+          )
         )
     );
   }
@@ -76,7 +78,8 @@ Future<Expanded> soundLanguage(context) async {
 }
 
 Future<Expanded> nativeLanguage(context) async {
-  var map = await Languages.get(context);
+  Map<String, Language?> map = {L10n.of(context)!.unspecified: null};
+  map.addAll(await Languages.get(context));
 
   return Expanded(child:
     FittedBox(child:
@@ -90,10 +93,10 @@ Future<Expanded> nativeLanguage(context) async {
 
 Expanded sex(context) {
   var map = {
-     L10n.of(context)!.male: Sex.male,
-     L10n.of(context)!.female: Sex.female,
-     L10n.of(context)!.otherSex: Sex.other,
-     L10n.of(context)!.unspecified: Sex.unspecified,
+    L10n.of(context)!.unspecified: Sex.unspecified,
+    L10n.of(context)!.male: Sex.male,
+    L10n.of(context)!.female: Sex.female,
+    L10n.of(context)!.otherSex: Sex.other,
   };
   return Expanded(child:
     FittedBox(child:
@@ -107,10 +110,10 @@ Expanded sex(context) {
 
 Expanded handedness(context) {
   var map = {
+    L10n.of(context)!.unspecified: Handedness.unspecified,
     L10n.of(context)!.right: Handedness.right,
     L10n.of(context)!.left: Handedness.left,
     L10n.of(context)!.both: Handedness.both,
-    L10n.of(context)!.unspecified: Handedness.unspecified
   };
   return Expanded(child:
     FittedBox(child:
@@ -122,9 +125,10 @@ Expanded handedness(context) {
 }
 
 Expanded age(context) {
-  var ages = List.generate(100, (index) => index.toString()).toList();
   Map<String, dynamic> map = {};
-  for (var element in ages) { map[element] = null; }
+  for (int i = 0; i < 100; i++) {
+    map[i.toString()] = i;
+  }
 
   return Expanded(child:
     FittedBox(child:

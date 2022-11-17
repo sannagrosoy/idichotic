@@ -22,10 +22,22 @@ class Language {
   final String french;
   final String? german;
 
+  @override
+  bool operator == (Object other) {
+    if (other is Language) {
+      return other.iso_639_2 == iso_639_2;
+    }
+    return false;
+  }
+
   factory Language.fromJson(Map<String, dynamic> json) =>
       _$LanguageFromJson(json);
 
   Map<String, dynamic> toJson() => _$LanguageToJson(this);
+
+  @override
+  int get hashCode => iso_639_2.hashCode;
+
 }
 
 // Stores languages as strings in the database

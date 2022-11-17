@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import '../db/database.dart';
-import '../db/shared.dart';
 import 'preferences.dart';
 
 class Dropdown<T> extends StatefulWidget {
@@ -22,17 +21,9 @@ class Dropdown<T> extends StatefulWidget {
     required this.options,
   });
 
-
-  static final database = constructDb();
-
   final Icon icon;
   final String description;
- // final List<String> options;
   final Map<String, dynamic> options;
-
-  void updateOption() {}
-
-
 
   @override
   State<StatefulWidget> createState() {
@@ -53,8 +44,27 @@ class DropdownState extends State<Dropdown> {
 
   Icon icon;
   String description;
-  ValueNotifier<int> selection = ValueNotifier(0);
+  int? selectionValue;
+  ValueNotifier<int?> selection = ValueNotifier(null);
   Map<String, dynamic> choices;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        setDefault();
+      });
+    });
+  }
+  
+  void setDefault() async {
+    var element = await getFields(description);
+    selectionValue = element != null ? choices.values.toList().indexOf(element) : null;
+    selection = ValueNotifier(selectionValue);
+  }
+  
 
   T? update<T extends Enum>(String selection, T fallback, Map<String, dynamic> map) {
     T? option = fallback;
@@ -92,6 +102,29 @@ class DropdownState extends State<Dropdown> {
     return PreferencesCompanion(id: const Value(0), age: Value(result));
   }
 
+  dynamic getFields(String option) async {
+    L10n? lang = L10n.of(context);
+    lang!;
+    Preference? result = await database.select(database.preferences).getSingleOrNull();
+    if (result == null) {
+      return null;
+    }
+    Map values = {
+      lang.sex: result.sex,
+      lang.handedness: result.handedness,
+      lang.nativeLanguage: result.nativeLanguage,
+      lang.soundLanguage: result.soundLanguage,
+      lang.age: result.age
+    };
+    if (values.containsKey(option)) {
+      return values[option];
+    }
+    else {
+      log("Attempted to retrieve unrecognized field");
+      throw InvalidDataException;
+    }
+      // Call the method matching option that was changed
+  }
 
   void updateFields(String option, String selection) async {
     Map values = {
@@ -111,13 +144,19 @@ class DropdownState extends State<Dropdown> {
   }
 
   void updateWithCompanion(PreferencesCompanion companion) async {
-    await Dropdown.database
-      .into(Dropdown.database.preferences)
+    await database
+      .into(database.preferences)
       .insertOnConflictUpdate(companion);
   }
 
+  void updateSelection(int value) {
+    selectionValue = value;
+    selection.value = selectionValue;
+    updateFields(description, choices.keys.toList()[value]);
+  }
 
   Widget picker(String option){
+
     return CupertinoPageScaffold(
       child: ScrollConfiguration(
         behavior: CrossPlatformScrollBehaviour(),
@@ -126,11 +165,10 @@ class DropdownState extends State<Dropdown> {
             itemExtent: 20,
             onSelectedItemChanged: (int selection) {
               setState(() {
-                this.selection.value = selection;
-                updateFields(option, choices.keys.toList()[selection]);
+                updateSelection(selection);
               });
             },
-            scrollController: FixedExtentScrollController(),
+            scrollController: FixedExtentScrollController(initialItem: selectionValue == null ? 0 : selectionValue!),
             //children: [sex(context), language(context)],
             children: List<Widget>.generate(choices.length, (index) {
               return Center(child: Text(choices.keys.toList()[index]));
@@ -141,6 +179,11 @@ class DropdownState extends State<Dropdown> {
   }
 
   void showPicker(Widget child) {
+    setState(() {
+      if (selectionValue == null) {
+        updateSelection(0);
+      }
+    });
     showCupertinoModalPopup(context: context, builder:
       (BuildContext context) => Container(
         height: 200,
@@ -152,25 +195,38 @@ class DropdownState extends State<Dropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.all(16),
       alignment: Alignment.bottomCenter,
-      child: FittedBox(
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          icon,
-          Text(description),
-          ValueListenableBuilder<int>(
-            builder: (BuildContext context, int value, Widget? child) {
-              return CupertinoButton(
-                  child: Text(choices.keys.toList()[value]),
-                  onPressed: () => showPicker(picker(description)));
-            },
-            valueListenable: selection,
-          )
-        ],
-      ),
+      child: ValueListenableBuilder<int?>(
+        builder: (BuildContext context, int? value, Widget? child) {
+          return CupertinoButton(
+            //child: Text(choices.keys.toList()[value]),
+            onPressed: () => showPicker(picker(description)),
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: screenWidth*0.65,
+              child: Row(
+                children: <Widget> [
+                  Container(
+                    alignment: Alignment.bottomLeft,
+                    width: screenWidth*0.4,
+                    child: Text(description, style: Theme.of(context).textTheme.titleLarge)
+                  ),
+                  Container(
+                    width: screenWidth*0.25,
+                    alignment: Alignment.bottomRight,
+                    child: value != null ?
+                        Text(choices.keys.toList()[value], style: Theme.of(context).textTheme.titleLarge)
+                        : const Icon(Icons.arrow_forward_ios_rounded)
+                    )
+                  ],
+                ),
+              )
+            );
+          },
+        valueListenable: selection,
       )
     );
   }

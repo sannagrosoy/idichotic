@@ -1,3 +1,4 @@
+import 'package:dichotic/db/shared.dart';
 import 'package:drift/drift.dart';
 
 import '../settings/preferences.dart';
@@ -14,3 +15,5 @@ class SharedDatabase extends _$SharedDatabase {
   @override
   int get schemaVersion => 1;
 }
+
+SharedDatabase database = constructDb();
