@@ -1,8 +1,5 @@
-import 'dart:ui';
-import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dichotic/results.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,19 +14,19 @@ class ListenApp extends StatefulWidget {
 var pageroute_results = () => MaterialPageRoute(builder: (context) => Results(title: "Results"));
 class ListenAppState extends State<ListenApp> {
   AudioPlayer player = AudioPlayer();
-  List<String> sounds = ["assets/audio/Ba-Ba.wav", "assets/audio/Ba-Da.wav",
-    "assets/audio/Ba-Ga.wav", "assets/audio/Ba-Ka.wav", "assets/audio/Ba-Pa.wav",
-    "assets/audio/Ba-Ta.wav", "assets/audio/Da-Ba.wav", "assets/audio/Da-Da.wav",
-    "assets/audio/Da-Ga.wav", "assets/audio/Da-Ka.wav", "assets/audio/Da-Pa.wav",
-    "assets/audio/Da-Ta.wav", "assets/audio/Ga-Ba.wav", "assets/audio/Ga-Da.wav",
-    "assets/audio/Ga-Ga.wav", "assets/audio/Ga-Ka.wav", "assets/audio/Ga-Pa.wav",
-    "assets/audio/Ga-Ta.wav", "assets/audio/Ka-Ba.wav", "assets/audio/Ka-Da.wav",
-    "assets/audio/Ka-Ga.wav", "assets/audio/Ka-Ka.wav", "assets/audio/Ka-Pa.wav",
-    "assets/audio/Ka-Ta.wav", "assets/audio/Pa-Ba.wav", "assets/audio/Pa-Da.wav",
-    "assets/audio/Pa-Ga.wav", "assets/audio/Pa-Ka.wav", "assets/audio/Pa-Pa.wav",
-    "assets/audio/Pa-Ta.wav", "assets/audio/Ta-Ba.wav", "assets/audio/Ta-Da.wav",
-    "assets/audio/Ta-Ga.wav", "assets/audio/Ta-Ka.wav", "assets/audio/Ta-Pa.wav",
-    "assets/audio/Ta-Ta.wav"];
+  List<String> sounds = ["audio/Ba-Ba.wav", "audio/Ba-Da.wav",
+    "audio/Ba-Ga.wav", "audio/Ba-Ka.wav", "audio/Ba-Pa.wav",
+    "audio/Ba-Ta.wav", "audio/Da-Ba.wav", "audio/Da-Da.wav",
+    "audio/Da-Ga.wav", "audio/Da-Ka.wav", "audio/Da-Pa.wav",
+    "audio/Da-Ta.wav", "audio/Ga-Ba.wav", "audio/Ga-Da.wav",
+    "audio/Ga-Ga.wav", "audio/Ga-Ka.wav", "audio/Ga-Pa.wav",
+    "audio/Ga-Ta.wav", "audio/Ka-Ba.wav", "audio/Ka-Da.wav",
+    "audio/Ka-Ga.wav", "audio/Ka-Ka.wav", "audio/Ka-Pa.wav",
+    "audio/Ka-Ta.wav", "audio/Pa-Ba.wav", "audio/Pa-Da.wav",
+    "audio/Pa-Ga.wav", "audio/Pa-Ka.wav", "audio/Pa-Pa.wav",
+    "audio/Pa-Ta.wav", "audio/Ta-Ba.wav", "audio/Ta-Da.wav",
+    "audio/Ta-Ga.wav", "audio/Ta-Ka.wav", "audio/Ta-Pa.wav",
+    "audio/Ta-Ta.wav"];
   int sound_index = 0;
   int Same_sound_correct = 0;
   int Same_sound_incorrect = 0;
@@ -55,14 +52,11 @@ class ListenAppState extends State<ListenApp> {
     String filepath = sounds[sound_index];
     play(filepath, player);
   }
+
   void play(String filepath, AudioPlayer player) async{
     String filepath = sounds[sound_index];
-    ByteData bytes = await rootBundle.load(filepath);
-    Uint8List audiobytes = bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-    int result = await player.playBytes(audiobytes);
-    if(result != 1){ //play success
-      print("Error while playing audio.");
-    }
+    await player.play(AssetSource(filepath));
+    //}
   }
   @override
   Widget build(BuildContext context) {
