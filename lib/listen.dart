@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dichotic/sounds.dart';
-import 'package:dichotic/loading.dart';
+import 'package:dichotic/loading_listen.dart';
+import 'package:dichotic/loading_cons.dart';
 
 class TestApp extends StatefulWidget {
   const TestApp({super.key, required this.title});
@@ -24,7 +25,8 @@ class TestAppState extends State<TestApp> {
           foregroundColor: Colors.black,
         );
 
-  var pageroute_listen = () => MaterialPageRoute(builder: (context) => const LoadingApp(title: "Loading"));
+  var pageroute_listen = () => MaterialPageRoute(builder: (context) => const LoadingListenApp(title: "Loading"));
+  var pageroute_cons = () => MaterialPageRoute(builder: (context) => const LoadingConsApp(title: "Loading"));
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class TestAppState extends State<TestApp> {
                   icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
                   containerHeight:(screenHeight-appBarHeight-statusBarHeight) * 0.34, 
                   containerWidth: screenWidth * 0.57, 
-                  pageroute: pageroute_listen),
+                  pageroute: pageroute_cons),
             ],)
         )
     );
@@ -95,7 +97,7 @@ class CustomButton extends StatelessWidget {
         shadowColor: Colors.black, 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))),
         child: Container(
-          height: containerHeight,
+          //height: containerHeight,
           width: containerWidth,
           child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -111,7 +113,7 @@ class CustomButton extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, containerHeight*0.03, 0, 0),
               child:text3),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, containerHeight*0.07, 0, containerHeight*0.04,),
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.07, 0, containerHeight*0.14,),
               child:icon)
           
           ]
