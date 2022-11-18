@@ -44,26 +44,39 @@ class TestAppState extends State<TestApp> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget> [
                 Container(
-                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.05,
+                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.02,
                 ),
 
                 CustomButton(
                   text1: const Text("Listen", style: TextStyle(fontSize: 20, color: Colors.black)),
                   text2: const Text("Duration: 3 minutes", style: TextStyle(fontSize: 12, color: Colors.black)), 
-                  text3: const Text("In this test you get presented mutliple sound and you have three seconds to press the button with the sound you hear the best.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
+                  text3: const Text("In this test you get presented mutliple sounds with one so and you have three seconds to press the button with the sound you hear the best.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
                   icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
                   containerHeight: (screenHeight-appBarHeight-statusBarHeight) * 0.34, 
                   containerWidth: screenWidth * 0.57, 
                   pageroute: pageroute_listen),
 
                 Container(
-                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.08
+                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.05
                 ),
 
                 CustomButton(
                   text1: const Text("Concentrate", style: TextStyle(fontSize: 20, color: Colors.black)),
                   text2: const Text("Duration: 5 minutes", style: TextStyle(fontSize: 12, color: Colors.black)), 
                   text3: const Text("In this test you get presented multiple sounds and you have three seconds to press the button with the sound you hear the best.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
+                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
+                  containerHeight:(screenHeight-appBarHeight-statusBarHeight) * 0.34, 
+                  containerWidth: screenWidth * 0.57, 
+                  pageroute: pageroute_cons),
+
+                                  Container(
+                  height: (screenHeight-appBarHeight-statusBarHeight) * 0.05
+                ),
+
+                CustomButton(
+                  text1: const Text("Tutorial", style: TextStyle(fontSize: 20, color: Colors.black)),
+                  text2: const Text("Duration: 3 minutes", style: TextStyle(fontSize: 12, color: Colors.black)), 
+                  text3: const Text("If you have not taken the tests before we recommend you to go through this tutorial before you do. You will get a score based on how well you do.", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.black)), 
                   icon: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 16), 
                   containerHeight:(screenHeight-appBarHeight-statusBarHeight) * 0.34, 
                   containerWidth: screenWidth * 0.57, 
@@ -113,7 +126,7 @@ class CustomButton extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, containerHeight*0.03, 0, 0),
               child:text3),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, containerHeight*0.07, 0, containerHeight*0.14,),
+              padding: EdgeInsets.fromLTRB(0, containerHeight*0.07, 0, containerHeight*0.10,),
               child:icon)
           
           ]

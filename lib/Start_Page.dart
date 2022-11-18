@@ -39,7 +39,7 @@ class StartAppState extends State<StartApp> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Text("🧠", style: TextStyle(fontSize: 95))),
+              child: Icon(Icons.headphones_outlined, size: 60)),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, (screenHeight-appBarHeight-statusBarHeight)*0.24),
               child: Text("iDichotic", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))),

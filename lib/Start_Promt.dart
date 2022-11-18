@@ -2,7 +2,6 @@ import 'package:dichotic/Start_Page.dart';
 import 'package:dichotic/settings/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'db/database.dart';
 
 class Start_Promt extends StatefulWidget {
@@ -38,6 +37,8 @@ class Start_Page extends State<Start_Promt> {
   }
 
   void initItems() async {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     items.add(age(context));
     items.add(sex(context));
     items.add(handedness(context));
@@ -47,14 +48,19 @@ class Start_Page extends State<Start_Promt> {
     var native = await nativeLang;
     items.add(sound);
     items.add(native);
-    var button = OutlinedButton(
+    var button = Container(
+      width: screenWidth*0.7,
+      height: screenHeight*0.06,
+      child: OutlinedButton(
       style:OutlinedButton.styleFrom(
           backgroundColor: Colors.white,
           elevation: 3,
           shadowColor: Colors.black,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
       ),
-      child: Text("Continue", style: Theme.of(context).textTheme.bodyMedium),
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text("Continue", style: Theme.of(context).textTheme.bodyMedium), Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black)]),
       onPressed: () async {
         func() => Navigator.push(context, MaterialPageRoute(builder: (context) => const StartApp(title: "Start page")));
         Preference? prefs = await database.select(database.preferences).getSingleOrNull();
@@ -68,7 +74,7 @@ class Start_Page extends State<Start_Promt> {
           func();
         }
       },
-    );
+    ));
 
     items.add(button);
   }
@@ -81,34 +87,37 @@ class Start_Page extends State<Start_Promt> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       body: Container(
+        color: Color.fromARGB(196, 235, 235, 235),
+        padding: EdgeInsets.fromLTRB(3, 65, 3, 65),
         child: AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           content: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
               SizedBox(
-                height: screenHeight*0.25,
+                height: screenHeight*0.28,
                 //height: screenHeight * 0.2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget> [
-                    //Padding(
-                    //  padding: EdgeInsets.fromLTRB(0, screenHeight*0.02, 0, 0),
-                       Text("🧠", style: Theme.of(context).textTheme.headlineLarge),
+                    Padding(
+                    padding: EdgeInsets.only(top: screenHeight*0.02),
+                       child: Icon(Icons.headphones_outlined, size: 60)),
                     //Padding(
                     //  padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight*0.03),
                        Text("iDichotic", style: Theme.of(context).textTheme.headlineLarge),
-                    //Padding(
-                    //  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                       Text("Before you continue..", style: Theme.of(context).textTheme.bodyMedium),
+                    Padding(
+                      padding: EdgeInsets.only(top: screenHeight*0.02),
+                       child: Text("Before you continue..", style: Theme.of(context).textTheme.bodyLarge)),
                     //Padding(
                     //  padding: EdgeInsets.fromLTRB(0, screenHeight*0.02, 0, 0),
                        Text("Please fill out the following information about yourself. This will only be stored locally to give you correct test results until you send it in.", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium)
                     ])),
               Form(
                 key: _formKey,
-                child: Padding(padding: EdgeInsetsDirectional.only(top:screenHeight*0.20),child:
+                child: Padding(padding: EdgeInsets.only(top:screenHeight*0.35),
+                child:
                   Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,

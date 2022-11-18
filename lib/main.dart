@@ -27,7 +27,13 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        textTheme: Typography.blackMountainView
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold), 
+          bodyLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 20),
+          bodyMedium: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 14),
+          bodySmall: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 12),
+
+        )
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

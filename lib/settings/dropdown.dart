@@ -196,30 +196,35 @@ class DropdownState extends State<Dropdown> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      padding: EdgeInsets.all(16),
+      //padding: EdgeInsets.all(16),
       alignment: Alignment.bottomCenter,
       child: ValueListenableBuilder<int?>(
         builder: (BuildContext context, int? value, Widget? child) {
           return CupertinoButton(
             //child: Text(choices.keys.toList()[value]),
             onPressed: () => showPicker(picker(description)),
-            padding: EdgeInsets.zero,
+            //padding: EdgeInsets.zero,
             child: Container(
               width: screenWidth*0.65,
               child: Row(
                 children: <Widget> [
                   Container(
                     alignment: Alignment.bottomLeft,
-                    width: screenWidth*0.4,
-                    child: Text(description, style: Theme.of(context).textTheme.titleLarge)
+                    height: screenHeight*0.03,
+                    width: screenWidth*0.3,
+                    child: Text(description, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.left)
+                  ),
+                  Container(
+                    width: screenWidth*0.1
                   ),
                   Container(
                     width: screenWidth*0.25,
                     alignment: Alignment.bottomRight,
                     child: value != null ?
-                        Text(choices.keys.toList()[value], style: Theme.of(context).textTheme.titleLarge)
-                        : const Icon(Icons.arrow_forward_ios_rounded)
+                        Text(choices.keys.toList()[value], style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.right)
+                        : const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 16)
                     )
                   ],
                 ),
