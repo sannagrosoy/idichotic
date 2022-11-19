@@ -34,6 +34,7 @@ class ListenAppState extends State<ListenApp> {
   int Left_correct = 0;
   int Right_correct = 0;
   int wrong = 0;
+  TimelineWidget? timeline;
     Widget appBar(context) {
       return AppBar(
           title: const Text("Listen", style: TextStyle(color: Colors.black)), 
@@ -73,6 +74,8 @@ class ListenAppState extends State<ListenApp> {
     final screenWidth = MediaQuery.of(context).size.width;
     final statusBarHeight = MediaQuery.of(context).padding.top;
     final appBarHeight = appBar.preferredSize.height;
+    timeline = TimelineWidget(app: this);
+    sounds.shuffle();
     sounds.shuffle();
     return Scaffold(
         appBar: AppBar(
@@ -152,7 +155,7 @@ class ListenAppState extends State<ListenApp> {
           Padding(
             padding: EdgeInsets.fromLTRB(screenWidth*0.13, screenHeight*0.05, screenWidth*0.13,0),
 
-            child: TimelineWidget())
+            child:   timeline)
 
       ],)
     ),
@@ -218,6 +221,7 @@ class CustomContainer extends StatelessWidget {
                   ExampleData(amount: app.wrong, id: "Inorrect"),
                 ];
               }
+
             },
             style: OutlinedButton.styleFrom(
               //backgroundColor: Colors.white,
@@ -241,9 +245,9 @@ class CustomContainer extends StatelessWidget {
       if (sound[0] == sound[1]) {
         app.Same_sound_correct++;
       } else if (sound[0] == name) {
-        app.Left_correct++;
-      } else {
         app.Right_correct++;
+      } else {
+        app.Left_correct++;
       }
     } else if (sound[0] != sound[1]) {
       app.wrong++;
@@ -255,18 +259,20 @@ class CustomContainer extends StatelessWidget {
 
 
 class TimelineWidget extends StatefulWidget {
-  const TimelineWidget({super.key});
-
-
+  final ListenAppState app;
+  TimelineWidget({required this.app});
+  //const TimelineWidget({super.key});
   @override
-  State<TimelineWidget> createState() => _TimelineWidgetState();
+  State<TimelineWidget> createState() => _TimelineWidgetState(app: app);
 }
 
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _TimelineWidgetState extends State<TimelineWidget>
+
     with TickerProviderStateMixin {
   late AnimationController controller;
-
+    final ListenAppState app;
+    _TimelineWidgetState({required  this.app});
 
 
   @override
@@ -275,10 +281,27 @@ class _TimelineWidgetState extends State<TimelineWidget>
       vsync: this,
       duration: const Duration(seconds: 3),
     )..addListener(() {
+          if (app.sound_index < app.sounds.length){
+            if (controller.status == AnimationStatus.completed) {
+              app.wrong++;
+              if(app.sound_index != app.sounds.length-1) {
+                app.sound_index++;
+                app.play(app.sounds[app.sound_index], app.player);
+                controller.reset();
+                controller.forward();
+              }
+            }
+        }
         setState(() {});
       });
-    controller.repeat(reverse: false);
+    //controller.repeat(reverse: false);
+    controller.forward();
     super.initState();
+  }
+
+  void reset(){
+    controller.reset();
+    controller.forward();
   }
 
   @override
