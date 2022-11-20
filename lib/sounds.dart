@@ -44,14 +44,8 @@ class ListenAppState extends State<ListenApp> {
         actions: [
           TextButton(
         onPressed: () {
-          List<ExampleData> data = [
-            ExampleData(amount: Right_correct, id: "Right correct"),
-            ExampleData(amount: Left_correct, id: "Left correct"),
-            ExampleData(amount: Same_sound_correct, id: "Homogen correct"),
-            ExampleData(amount: Same_sound_incorrect, id: "Homogen incorrect"),
-            ExampleData(amount: wrong, id: "Inorrect"),
-          ];
-          Navigator.push(context, pageroute_results.call(data));},
+          testFinished();
+          },
         child: const Text("Results"))
         ],);
     }
@@ -67,6 +61,18 @@ class ListenAppState extends State<ListenApp> {
     await player.play(AssetSource(filepath));
     //}
   }
+
+  void testFinished(){
+    List<ExampleData> data = [
+      ExampleData(amount: Right_correct, id: "Right correct"),
+      ExampleData(amount: Left_correct, id: "Left correct"),
+      ExampleData(amount: Same_sound_correct, id: "Homogen correct"),
+      ExampleData(amount: Same_sound_incorrect, id: "Homogen incorrect"),
+      ExampleData(amount: wrong, id: "Inorrect"),
+    ];
+    Navigator.push(context, pageroute_results.call(data));
+  }
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar();
@@ -87,14 +93,8 @@ class ListenAppState extends State<ListenApp> {
             actions: [
             TextButton(
             onPressed: () {
-              List<ExampleData> data = [
-                ExampleData(amount: Right_correct, id: "Right correct"),
-                ExampleData(amount: Left_correct, id: "Left correct"),
-                ExampleData(amount: Same_sound_correct, id: "Homogen correct"),
-                ExampleData(amount: Same_sound_incorrect, id: "Homogen incorrect"),
-                ExampleData(amount: wrong, id: "Inorrect"),
-              ];
-              Navigator.push(context, pageroute_results.call(data));},
+              testFinished();
+              },
         child: const Text("Results")),
     ],
     ),
@@ -212,16 +212,10 @@ class CustomContainer extends StatelessWidget {
               if (app.sound_index < app.sounds.length) {
                 String filepath = app.sounds[app.sound_index];
                 app.play(filepath, app.player);
+                _TimelineWidgetState.reset();
               } else {
-                List<ExampleData> data = [
-                  ExampleData(amount: app.Right_correct, id: "Right correct"),
-                  ExampleData(amount: app.Left_correct, id: "Left correct"),
-                  ExampleData(amount: app.Same_sound_correct, id: "Homogen correct"),
-                  ExampleData(amount: app.Same_sound_incorrect, id: "Homogen incorrect"),
-                  ExampleData(amount: app.wrong, id: "Inorrect"),
-                ];
+                app.testFinished();
               }
-
             },
             style: OutlinedButton.styleFrom(
               //backgroundColor: Colors.white,
@@ -264,13 +258,15 @@ class TimelineWidget extends StatefulWidget {
   //const TimelineWidget({super.key});
   @override
   State<TimelineWidget> createState() => _TimelineWidgetState(app: app);
+
 }
+
 
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _TimelineWidgetState extends State<TimelineWidget>
 
     with TickerProviderStateMixin {
-  late AnimationController controller;
+    static late AnimationController controller;
     final ListenAppState app;
     _TimelineWidgetState({required  this.app});
 
@@ -289,6 +285,8 @@ class _TimelineWidgetState extends State<TimelineWidget>
                 app.play(app.sounds[app.sound_index], app.player);
                 controller.reset();
                 controller.forward();
+              }else{
+                app.testFinished();
               }
             }
         }
@@ -299,7 +297,7 @@ class _TimelineWidgetState extends State<TimelineWidget>
     super.initState();
   }
 
-  void reset(){
+  static void reset(){
     controller.reset();
     controller.forward();
   }
