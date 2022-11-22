@@ -27,5 +27,13 @@
 
   "both": "Both",
 
-  "continueString": "Continue"
+  "continueString": "Continue",
+
+  "missingOption": "You appear to not have filled out some of the options, please look over them again",
+
+  "canContinue": "You can press the button below to ignore the warning, at the cost of accuracy",
+  "@canContinue": {
+    "description": "Tell the user that the warning only shows up one time"
+  },
+  "dismiss": "Ignore"
 }

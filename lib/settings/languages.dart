@@ -12,7 +12,7 @@ class Languages {
       var elements = element.split('|');
       var lang = Language(
           iso_639_2: elements[0],
-          iso_639_1: elements[1],
+          iso_639_1: elements[2],
           english:   elements[3],
           french:    elements[4],
       );

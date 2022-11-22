@@ -44,8 +44,8 @@ class DropdownState extends State<Dropdown> {
 
   Icon icon;
   String description;
-  int? selectionValue;
-  ValueNotifier<int?> selection = ValueNotifier(null);
+  int selectionValue = -1;
+  ValueNotifier<int> selection = ValueNotifier(-1);
   Map<String, dynamic> choices;
 
   @override
@@ -61,7 +61,7 @@ class DropdownState extends State<Dropdown> {
   
   void setDefault() async {
     var element = await getFields(description);
-    selectionValue = element != null ? choices.values.toList().indexOf(element) : null;
+    selectionValue = element != null ? choices.values.toList().indexOf(element) : -1;
     selection = ValueNotifier(selectionValue);
   }
   
@@ -168,7 +168,7 @@ class DropdownState extends State<Dropdown> {
                 updateSelection(selection);
               });
             },
-            scrollController: FixedExtentScrollController(initialItem: selectionValue == null ? 0 : selectionValue!),
+            scrollController: FixedExtentScrollController(initialItem: selectionValue),
             //children: [sex(context), language(context)],
             children: List<Widget>.generate(choices.length, (index) {
               return Center(child: Text(choices.keys.toList()[index]));
@@ -200,8 +200,8 @@ class DropdownState extends State<Dropdown> {
     return Container(
       //padding: EdgeInsets.all(16),
       alignment: Alignment.bottomCenter,
-      child: ValueListenableBuilder<int?>(
-        builder: (BuildContext context, int? value, Widget? child) {
+      child: ValueListenableBuilder<int>(
+        builder: (BuildContext context, int value, Widget? child) {
           return CupertinoButton(
             //child: Text(choices.keys.toList()[value]),
             onPressed: () => showPicker(picker(description)),
@@ -222,7 +222,7 @@ class DropdownState extends State<Dropdown> {
                   Container(
                     width: screenWidth*0.25,
                     alignment: Alignment.bottomRight,
-                    child: value != null ?
+                    child: value != -1 ?
                         Text(choices.keys.toList()[value], style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.right)
                         : const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 16)
                     )

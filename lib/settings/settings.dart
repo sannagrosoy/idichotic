@@ -80,6 +80,7 @@ Future<Expanded> soundLanguage(context) async {
 Future<Expanded> nativeLanguage(context) async {
   Map<String, Language?> map = {L10n.of(context)!.unspecified: null};
   map.addAll(await Languages.get(context));
+  map.removeWhere((key, value) => value != null && value.iso_639_1 == "");
 
   return Expanded(child:
     FittedBox(child:
@@ -125,7 +126,7 @@ Expanded handedness(context) {
 }
 
 Expanded age(context) {
-  Map<String, dynamic> map = {};
+  Map<String, dynamic> map = {"Not Answered": null};
   for (int i = 0; i < 100; i++) {
     map[i.toString()] = i;
   }
