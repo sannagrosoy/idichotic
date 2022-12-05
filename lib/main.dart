@@ -35,10 +35,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
         textTheme: const TextTheme(
-          headlineLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 20),
-          bodyMedium: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 14),
+          headlineLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold), 
+          bodyLarge: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 24),
+          bodyMedium: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 16),
           bodySmall: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 12),
+          headlineSmall: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+          headlineMedium: TextStyle(fontFamily: 'Inter', color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)
 
         )
       ),

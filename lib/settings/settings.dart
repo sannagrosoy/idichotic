@@ -24,7 +24,7 @@ final soundLanguages = ["eng", "nor", "est", "fin", "ger"];
 var icons = [Icons.abc, Icons.label, Icons.g_mobiledata, Icons.offline_bolt, Icons.face, Icons.sailing_rounded];
 
 class SettingsState extends State<SettingsPage> {
-  final List<Expanded> items = [];
+  final List<Widget> items = [];
   @override
   void initState() {
     super.initState();
@@ -34,32 +34,75 @@ class SettingsState extends State<SettingsPage> {
       });
     });
   }
-
   void initItems() async {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+
     var sound = soundLanguage(context);
     var lang = await nativeLanguage(context);
     var soundLang = await sound;
+
+
     setState(() {
-      items.add(sex(context));
-      items.add(handedness(context));
-      items.add(age(context));
-      items.add(lang);
-      items.add(soundLang);
+      items.add(Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Container(
+                padding: EdgeInsets.fromLTRB(screenWidth*0.15, screenHeight*0.04, 0, 0),
+                child: Text("Hearing", style: Theme.of(context).textTheme.headlineMedium))]));
+      items.add(Container(
+                decoration: BoxDecoration(border: Border(
+                top: BorderSide(width: 1.5, color: Colors.black),
+                bottom: BorderSide(width: 1.5, color: Colors.black),)),
+                child:soundLang));
+      items.add(Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Container(
+                padding: EdgeInsets.fromLTRB(screenWidth*0.15, screenHeight*0.05, 0, 0),
+                child: Text("Personal", style: Theme.of(context).textTheme.headlineMedium))]),);
+      items.add(Container(
+                decoration: BoxDecoration(border: Border(
+                top: BorderSide(width: 1.5, color: Colors.black),
+                //bottom: BorderSide(width: 1.5, color: Colors.black),
+                )),
+                child: sex(context)));
+      items.add(Container(
+                decoration: BoxDecoration(border: Border(
+                top: BorderSide(width: 1.5, color: Colors.black),
+                //bottom: BorderSide(width: 1.5, color: Colors.black),
+                )),
+                child:handedness(context)));
+      items.add(Container(
+                decoration: BoxDecoration(border: Border(
+                top: BorderSide(width: 1.5, color: Colors.black),
+                //bottom: BorderSide(width: 1.5, color: Colors.black),
+                )),
+                child:age(context)));
+      items.add(Container(
+                decoration: BoxDecoration(border: Border(
+                top: BorderSide(width: 1.5, color: Colors.black),
+                bottom: BorderSide(width: 1.5, color: Colors.black),
+                )),
+                child:lang));;
     });
   }
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
-        appBar: AppBar(title: Text(L10n.of(context)!.settings)),
+        appBar: AppBar(
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          title: Text(L10n.of(context)!.settings, style: Theme.of(context).textTheme.headlineLarge)),
         body: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(10),
+          //height: screenHeight*0.4,
+          //padding: EdgeInsets.all(10),
           child: Form(
             key: GlobalKey<FormState>(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: items
+              children: items,
             )
           )
         )
@@ -135,8 +178,10 @@ Expanded age(context) {
     map[i.toString()] = i;
   }
 
-  return Expanded(child:
-    FittedBox(child:
+  return Expanded(
+  child:
+    FittedBox(
+      child:
       Dropdown(
         icon: const Icon(Icons.timelapse),
         description: L10n.of(context)!.age,

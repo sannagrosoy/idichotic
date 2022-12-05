@@ -94,8 +94,12 @@ class Start_Page extends State<Start_Promt> {
               || prefs.sex == Sex.unspecified
               || prefs.age == null
               || prefs.handedness == Handedness.unspecified)) {
-        Widget ok = ElevatedButton(
-          child: Text(L10n.of(context)!.dismiss),
+        Widget ok = OutlinedButton(
+          child: Text(L10n.of(context)!.dismiss, style: TextStyle(color: Colors.black)),
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+            shadowColor: MaterialStatePropertyAll<Color>(Colors.black),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
             warned++;
@@ -105,7 +109,10 @@ class Start_Page extends State<Start_Promt> {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
+              return 
+              AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 title: Text("Warning", style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center,),
                 alignment: Alignment.center,
                 actionsAlignment: MainAxisAlignment.center,
@@ -113,12 +120,12 @@ class Start_Page extends State<Start_Promt> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget> [
                       Text("${L10n.of(context)!.missingOption}\n", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
-                      Text(L10n.of(context)!.canContinue, style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+                      Text(L10n.of(context)!.canContinue, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
                 ]),
                 actions: [
                   ok,
                 ],
-                elevation: 5,
+                elevation: 5
               );
             });
         return;
@@ -164,7 +171,9 @@ class Start_Page extends State<Start_Promt> {
                     ])),
               Form(
                 key: _formKey,
-                child: Padding(padding: EdgeInsets.only(top:screenHeight*0.35),
+                child: Container(
+                  //height: screenHeight*0.8,
+                  padding: EdgeInsets.only(top:screenHeight*0.35),
                 child:
                   Column(
                   mainAxisAlignment: MainAxisAlignment.end,
