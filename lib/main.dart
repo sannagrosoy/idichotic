@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void decideFirstScreen() async {
-    Preference prefs = await database.select(database.preferences).getSingle();
+    Preference? prefs = await database.select(database.preferences).getSingleOrNull();
     setState(() {
       startPrompt = isUnsetOrUnspecified(prefs);
     });
