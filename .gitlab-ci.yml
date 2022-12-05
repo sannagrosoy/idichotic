@@ -5,53 +5,29 @@
 image: cirrusci/flutter
 
 stages:
+    - validate
     - build
     - test
     - deploy
 
-build-web:
-    stage: build
-    tags: 
-        - linux
-    script:
-        - flutter build web
+include:
+    - "/.gitlab/ci/.gitlab-android.yml"
+    - "/.gitlab/ci/.gitlab-ios.yml"
+    - "/.gitlab/ci/.gitlab-linux.yml"
+    - "/.gitlab/ci/.gitlab-web.yml"
+    - "/.gitlab/ci/.gitlab-license.yml"
 
-build-android:
-    image: cirrusci/flutter
-    stage: build
-    tags: 
-        - android
-    script:
-        - flutter build appbundle
+variables:
+    PUB_CACHE: $CI_PROJECT_DIR/.pub-cache
+    GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
 
-build-ios:
-    stage: build
-    tags: 
-        - iOS
-    script:
-        # Hopefully this works :D
-        - flutter build ipa
-    when: manual
-
-test-ios:
-    stage: test
-    tags: 
-        - iOS
-    script:
-        - flutter test
-    when: manual
-    dependencies:
-      - build-ios
-
-test-linux:
-    stage: test
-    tags: 
-        - linux
-    script:
-        - flutter test
-    dependencies:
-      - build-web
-      - build-android
+cache:
+    paths:
+        - $CI_PROJECT_DIR/.gradle/
+        - $CI_PROJECT_DIR/.pub-cache/
+        - $CI_PROJECT_DIR/.dart_tool/
+        - $CI_PROJECT_DIR/.flutter-plugins/
+        - $CI_PROJECT_DIR/.flutter-plugins-dependencies/
 
 # TODO: deploy
 

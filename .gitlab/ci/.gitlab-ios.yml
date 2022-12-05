@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2022 iDichotic+ Authors <https://dichotic.app>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+build-ios:
+  stage: build
+  tags:
+    - iOS
+  script:
+    # Hopefully this works :D
+    - flutter build ipa
+  when: manual
+
+test-ios:
+  stage: test
+  tags:
+    - iOS
+  script:
+    - flutter test
+  when: manual
+  dependencies:
+    - build-ios

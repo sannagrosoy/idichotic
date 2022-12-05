@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2022 iDichotic+ Authors <https://dichotic.app>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+build-linux:
+  stage: build
+  when: manual # Disabled until we find an image with CMake
+  tags:
+    - linux
+  script:
+    - flutter build linux
+
+test-linux:
+  stage: test
+  tags:
+    - linux
+  script:
+    - flutter test
+  dependencies:
+    - build-web
+    - build-android
