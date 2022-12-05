@@ -283,6 +283,17 @@ class _TimelineWidgetState extends State<TimelineWidget>
     )..addListener(() {
           if (app.sound_index < app.sounds.length){
             if (controller.status == AnimationStatus.completed) {
+              String oldfilepath = app.sounds[app.sound_index];
+              List<String> sounds = oldfilepath.split("/");
+              String filename = sounds[sounds.length - 1];
+              List<String> sounds_2 = filename.split(".");
+              String sound_2 = sounds_2[0];
+              List<String> sound = sound_2.split("-");
+              if(sound[0]!= sound[1]){
+                app.wrong++;
+              }else{
+                app.Same_sound_incorrect++;
+              }
               app.wrong++;
               if(app.sound_index != app.sounds.length-1) {
                 app.sound_index++;

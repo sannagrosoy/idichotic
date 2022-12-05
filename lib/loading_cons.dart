@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dichotic/sounds.dart';
 import 'package:dichotic/listen.dart';
+import 'package:dichotic/concentrate.dart';
 
 
 
@@ -35,7 +36,7 @@ class LoadingConsAppState extends State<LoadingConsApp>  {
 
     route(){
       Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => ListenApp(title: "listen")
+        builder: (context) => ConcentrateApp(title: "Concentrate", rightEar: true)
       ));
     }
 
