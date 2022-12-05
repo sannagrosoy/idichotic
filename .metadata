@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 iDichotic+ Authors <https://dichotic.app>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 # This file tracks properties of this Flutter project.
 # Used by Flutter tool to assess capabilities and perform upgrades etc.
 #
@@ -43,3 +47,4 @@ migration:
   unmanaged_files:
     - 'lib/main.dart'
     - 'ios/Runner.xcodeproj/project.pbxproj'
+android

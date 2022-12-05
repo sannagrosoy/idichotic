@@ -1,0 +1,34 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: iDichotic+
+Upstream-Contact: Kristian Grønås <Kristian.Gronas@student.uib.no>
+Source: https://dichotic.app
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...
+
+Files: windows/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0
+
+Files: linux/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0
+
+Files: macos/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0
+
+Files: ios/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0
+
+Files: android/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0
+
+Files: web/*
+Copyright: 2022 iDichotic+ Authors <https://dichotic.app>
+License: CC0-1.0

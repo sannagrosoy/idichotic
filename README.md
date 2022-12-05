@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 iDichotic+ Authors <https://dichotic.app>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # dichotic
 
 Dichotic listening app

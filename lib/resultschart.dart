@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 iDichotic+ Authors <https://dichotic.app>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'package:dichotic/exampledata.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
